@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -24,30 +23,29 @@ const schema = Yup.object().shape({
     .required(),
 });
 
-export class Contactsform extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
-  render() {
-    return (
-      <Formik
-        initialValues={{
-          name: '',
-          number: '',
-        }}
-        validationSchema={schema}
-        onSubmit={this.props.onSubmit}
-      >
-        <FormAdd>
-          <label htmlFor="name">Name</label>
-          <Field name="name" id="name"></Field>
-          <ErrorMessage name="name" />
-          <label htmlFor="number">Number</label>
-          <Field type="tel" name="number" id="number"></Field>
-          <ErrorMessage name="number" />
-          <Button type="submit">Add contact</Button>
-        </FormAdd>
-      </Formik>
-    );
-  }
+export default function Contactsform({ onSubmit }) {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      validationSchema={schema}
+      onSubmit={onSubmit}
+    >
+      <FormAdd>
+        <label htmlFor="name">Name</label>
+        <Field name="name" id="name"></Field>
+        <ErrorMessage name="name" />
+        <label htmlFor="number">Number</label>
+        <Field type="tel" name="number" id="number"></Field>
+        <ErrorMessage name="number" />
+        <Button type="submit">Add contact</Button>
+      </FormAdd>
+    </Formik>
+  );
 }
+
+Contactsform.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
